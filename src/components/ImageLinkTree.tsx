@@ -74,6 +74,7 @@ export const ImageLinkTree = memo(() => {
         wind: { x: 0, y: 0 },
       },
       layout: {
+        // 階層構造 下に向かって流れる
         hierarchical: {
           shakeTowards: "roots",
           sortMethod: "directed",
@@ -116,21 +117,21 @@ export const ImageLinkTree = memo(() => {
       // Network Instance を作成して、DataをSetする => new Network(Dom領域, Data(Nodes & Edges), Options)
       network = new Network(ref.current, data, options);
 
-      //アップから始まって、全体を表示
-      network.once("beforeDrawing", function () {
-        // id=1にフォーカス scaleはアップの大きさ
-        network.focus(6, {
-          scale: 5,
-        });
-      });
-      network.once("afterDrawing", function () {
-        network.fit({
-          animation: {
-            duration: 3000,
-            easingFunction: "linear",
-          },
-        });
-      });
+      // //アップから始まって、全体を表示
+      // network.once("beforeDrawing", function () {
+      //   // id=1にフォーカス scaleはアップの大きさ
+      //   network.focus(6, {
+      //     scale: 5,
+      //   });
+      // });
+      // network.once("afterDrawing", function () {
+      //   network.fit({
+      //     animation: {
+      //       duration: 3000,
+      //       easingFunction: "linear",
+      //     },
+      //   });
+      // });
 
       // Click イベントハンドラ を追加する
       network.on("doubleClick", (params: { nodes: number[] }) => {
