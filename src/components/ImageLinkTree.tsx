@@ -68,6 +68,11 @@ export const ImageLinkTree = memo(() => {
       edges: edges,
     };
     const options = {
+      // 最初にゆれてから形が定まる
+      physics: {
+        stabilization: false,
+        wind: { x: 0, y: 0 },
+      },
       layout: {
         hierarchical: {
           shakeTowards: "roots",
@@ -88,7 +93,14 @@ export const ImageLinkTree = memo(() => {
         },
       },
       edges: {
-        smooth: true,
+        smooth: {
+          enabled: true,
+          // type: "vertical",
+          // type: "horizonal",
+          type: "continuous",
+          // type: "cubicBezier",  //くねる感じ
+          roundness: 0.5,
+        },
         arrows: { to: true },
         color: {
           color: "dodgerblue",
@@ -107,7 +119,7 @@ export const ImageLinkTree = memo(() => {
       //アップから始まって、全体を表示
       network.once("beforeDrawing", function () {
         // id=1にフォーカス scaleはアップの大きさ
-        network.focus(1, {
+        network.focus(6, {
           scale: 5,
         });
       });
@@ -119,6 +131,7 @@ export const ImageLinkTree = memo(() => {
           },
         });
       });
+
       // Click イベントハンドラ を追加する
       network.on("doubleClick", (params: { nodes: number[] }) => {
         if (params.nodes.length > 0) {
